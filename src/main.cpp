@@ -59,6 +59,8 @@ void initClockVariables()
   H_LENGTH = S_LENGTH * 0.5;
 }
 
+static uint8_t pattern[BUFFERSIZE];
+
 // Draw an analog clock face
 void drawFace()
 {
@@ -79,6 +81,7 @@ void drawFace()
 
 void setup()
 {
+
   oled.begin();     // Initialize the OLED
   oled.clear(PAGE); // Clear the display's internal memory
   //oled.clear(ALL);  // Clear the library's display buffer
@@ -91,13 +94,30 @@ void setup()
   oled.setCursor(0,1);              // Set cursor position
   oled.print("   ACROBOTIC   ");
   */
+  // Initialize pattern
+  for (int y = 0; y < 4; y++) {
+    for (int x = 0; x < 128; x++) {
+      int block = 0;
+      if (y % 2 == 0) {
+          block = 0xFF;
+      }
+      if (x % 8 < 4) {
+        pattern[x + y*LCDWIDTH] = block;
+      } else {
+        pattern[x + y*LCDWIDTH] = block ^ 0xFF;
+      }
+    }
+  }
 
-/*
   oled.clear(ALL);
   oled.setFontType(1);
   oled.setCursor(0,0);
+  oled.print("Hello!");
+  oled.drawBitmap(pattern);
   oled.display();
-  */
+
+  oled.command(RIGHTHORIZONTALSCROLL);
+  oled.command(ACTIVATESCROLL);
 }
 
 unsigned char brightness = 0;

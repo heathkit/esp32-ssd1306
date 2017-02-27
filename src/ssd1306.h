@@ -57,9 +57,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BLACK 0
 #define WHITE 1
 
-#define LCDWIDTH		  64
-#define LCDHEIGHT		  48
+#define LCDWIDTH		  128
+#define LCDHEIGHT		  32
 #define FONTHEADERSIZE		6
+#define BUFFERSIZE LCDWIDTH*LCDHEIGHT/8
 
 #define NORM				0
 #define XOR					1
